@@ -1,0 +1,127 @@
+[gd_scene load_steps=7 format=3 uid="uid://bs04cmjd8o1gq"]
+
+[ext_resource type="Script" uid="uid://dac3ru20l2vph" path="res://scenes/storyline.gd" id="1_cxfbi"]
+
+[sub_resource type="Gradient" id="Gradient_5jsr4"]
+offsets = PackedFloat32Array(0, 0.362319, 0.942029, 1)
+colors = PackedColorArray(0.960707, 0.855916, 0.779749, 1, 0.975228, 0.909164, 0.861146, 1, 0.987896, 0.955614, 0.932151, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_cxfbi"]
+gradient = SubResource("Gradient_5jsr4")
+
+[sub_resource type="Animation" id="Animation_5jsr4"]
+resource_name = "bounce"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1076, 602), Vector2(1076, 595), Vector2(1076, 602)]
+}
+
+[sub_resource type="Animation" id="Animation_cxfbi"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1076, 602)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6gaap"]
+_data = {
+&"RESET": SubResource("Animation_cxfbi"),
+&"bounce": SubResource("Animation_5jsr4")
+}
+
+[node name="Storyline" type="CanvasLayer"]
+script = ExtResource("1_cxfbi")
+
+[node name="DialogControl" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="DialogControl"]
+modulate = Color(1, 1, 1, 0.686275)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -146.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = SubResource("GradientTexture1D_cxfbi")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="DialogControl"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = -143.0
+offset_right = -19.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0.442911, 0.442911, 0.442911, 1)
+theme_override_font_sizes/bold_italics_font_size = 22
+theme_override_font_sizes/italics_font_size = 22
+theme_override_font_sizes/mono_font_size = 22
+theme_override_font_sizes/normal_font_size = 22
+theme_override_font_sizes/bold_font_size = 22
+bbcode_enabled = true
+text = "Lorem Ipsum Weaxan [img]res://logo.png[/img]"
+horizontal_alignment = 1
+vertical_alignment = 1
+deselect_on_focus_loss_enabled = false
+drag_and_drop_selection_enabled = false
+
+[node name="NEXT" type="Button" parent="DialogControl"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -80.0
+offset_top = -46.0
+offset_right = -11.0
+offset_bottom = -15.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_colors/font_hover_color = Color(5.39064e-06, 0.78852, 0, 1)
+theme_override_colors/font_color = Color(0.93845, 0.93845, 0.93845, 1)
+theme_override_font_sizes/font_size = 16
+text = "[ENTER]"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="DialogControl/NEXT"]
+libraries = {
+&"": SubResource("AnimationLibrary_6gaap")
+}
+autoplay = "bounce"
+
+[node name="Timer" type="Timer" parent="."]
+process_callback = 0
+
+[connection signal="pressed" from="DialogControl/NEXT" to="." method="_on_next_pressed"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

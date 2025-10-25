@@ -14,10 +14,12 @@ It'll be an Action RPG style game, with a top-down view. We'll cover the basics 
 
 ### LINKS
 
-**Assets (Tileset, SpriteSheets)***
+**Assets (Tileset, SpriteSheets)**
 
 🧩 [8x8 Tileset Simple Greenland](https://abionic.itch.io/simple-grassland-tileset)
 🧩 [8x8 SpriteSheet Player/NPC/Enemy](https://abionic.itch.io/player-x-and-y)
 🧩 [8x8 Green Slime](https://abionic.itch.io/slime-slime-pixel-art)
+
+> Weaxan means 'to grow' in old english.
 
 ---
